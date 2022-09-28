@@ -44,6 +44,7 @@ $routes->get('dashboard', 'Admin\DashboardController::index');
 // routes Data produk
 $routes->get('data-produk', 'Admin\ProdukController::index');
 $routes->get('data-produk/tambah', 'Admin\ProdukController::form_tambah');
+$routes->post('data-produk/tambah-produk', 'Admin\ProdukController::tambah_produk');
 
 /*
  * --------------------------------------------------------------------

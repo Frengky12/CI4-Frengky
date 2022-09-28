@@ -23,6 +23,9 @@
     <link href="<?= base_url('sb2');?>/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
     <script src="<?= base_url('sb2');?>/vendor/jquery/jquery.min.js"></script>
 
+    <!-- Untuk sefction custom css -->
+    <?= $this->renderSection('style'); ?>
+
 </head>
 
 <body id="page-top">
@@ -115,6 +118,9 @@
     <script src="<?= base_url('sb2/vendor/datatables/dataTables.bootstrap4.min.js'); ?>"></script>
 
     <script src="<?= base_url('sb2/js/demo/datatables-demo.js'); ?>"></script>
+
+    <!-- untuk section custom js -->
+    <?= $this->renderSection('script'); ?>
 
 </body>
 
