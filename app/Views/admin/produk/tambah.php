@@ -1,4 +1,10 @@
 <?= $this->extend('admin/template/layout'); ?>
+
+<?= $this->Section('style'); ?>
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
+<?= $this->endSection(); ?>
+
+
 <?= $this->Section('content'); ?>
 
 <div class="container-fluid">
@@ -11,21 +17,11 @@
         </div>
 
         <div class="card-body">
-
+            <div class="swal" data-swal="<?= session('failed') ?>"></div>
 
             <form action="<?= base_url('data-produk/tambah-produk'); ?>" method="post" enctype="multipart/form-data">
                 <?= csrf_field(); ?>
 
-                <!-- <div class="rows mb-3">
-                    <label for="nama_produk"><b>Nama Produk</b></label>
-                    <input type="text" name="nama_produk" id="nama_produk" class="form-control <?= $validation->hasError('nama_produk') ? 'is-invalid' : null ?>" value="<?= old('nama_produk') ?>">
-
-                    <?php if($validation->hasError('nama_produk')): ?>
-                        <div class="invalid-feedback">
-                            <?= $validation->getError('nama_produk'); ?>
-                        </div>
-                    <?php endif; ?>
-                </div> -->
                                     <div class="rows mb-3">
                                         <label for="nama_produk"><b>Nama Produk</b></label>
                                         <input type="text" name="nama_produk" id="nama_produk" class="form-control <?= $validation->hasError('nama_produk') ? 'is-invalid' : null ?>" value="<?= old('nama_produk') ?>">
@@ -81,7 +77,7 @@
 <script src="https://cdn.ckeditor.com/4.19.0/standard/ckeditor.js"></script>
 
 <script>
-    CKEDITOR.replace( 'deskripsi' );
+    // CKEDITOR.replace( 'deskripsi' );
 </script>
 <script>
     function previewImg() {
@@ -99,5 +95,19 @@
         }
     }
 </script>
+
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        const swal = $('.swal').data('swal');
+        if (swal) {
+            Swal.fire({
+                icon: 'warning',
+                title: 'Gagal',
+                text : swal, 
+                showConfirmButton: false,
+                timer: 2000
+            })
+        }
+    </script>
 
 <?= $this->endSection(); ?>

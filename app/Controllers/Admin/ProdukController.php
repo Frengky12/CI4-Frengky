@@ -24,6 +24,8 @@ class ProdukController extends BaseController
         ];
         return view('admin/produk/tambah', $data);
     }
+
+    // Tambah produk
     public function tambah_produk()
     {
         $rules = $this->validate([
@@ -52,5 +54,14 @@ class ProdukController extends BaseController
 
         ]);
         return redirect()->to(base_url('data-produk'))->with('success','Data Produk Berhasil Ditambahkan!');
+    }
+
+    // Hapus Produk
+    public function delete_produk($id_produk)
+    {
+      $this->ProdukModel->where('id_produk', $id_produk)->delete();
+
+      return redirect()->back()->with('success', 'Kategori Produk Berhasil Dihapus!');
+    
     }
 }
