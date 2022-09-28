@@ -46,7 +46,8 @@ $routes->get('data-produk', 'Admin\ProdukController::index');
 $routes->get('data-produk/tambah', 'Admin\ProdukController::form_tambah');
 $routes->post('data-produk/tambah-produk', 'Admin\ProdukController::tambah_produk');
 $routes->delete('data-produk/delete-produk(:num)','Admin\ProdukController::delete_produk/$1');
-
+$routes->get('data-produk/detail-produk/(:num)','Admin\ProdukController::detail_produk/$1');
+$routes->put('data-produk/update-produk/(:num)','Admin\ProdukController::update_produk/$1');
 /*
  * --------------------------------------------------------------------
  * Additional Routing

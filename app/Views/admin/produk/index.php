@@ -49,9 +49,9 @@
                             </td>
                             <td><?= date('d-m-Y H:i:s', strtotime($produk->tanggal_ditambahkan)); ?></td>
                             <td width="15%" class="text-center">
-                                <a href="#" class="btn btn-secondary btn-sm mb-1" title="Detail"><i class="fas fa-eye"></i></a>
-                                <a href="#" class="btn btn-success btn-sm mb-1" title="Edit"><i class="fas fa-user-edit"></i></a>
-                                <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#modalHapus<?= $produk->id_produk ?>"> <i class="fas fa-trash-alt"></i> </button>
+                                <a href="<?= base_url('data-produk/detail-produk/'.$produk->id_produk) ?>" class="btn btn-secondary btn-sm mb-1" title="Detail"><i class="fas fa-eye"></i></a>
+                                <button class="btn btn-success btn-sm mb-1" data-toggle="modal" data-target="#modalEdit<?= $produk->id_produk ?>" title="Edit"><i class="fas fa-user-edit"></i></button>
+                                <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#modalHapus<?= $produk->id_produk ?>" title="Hapus"> <i class="fas fa-trash-alt"></i> </button>
 
 
                             </td>
@@ -64,7 +64,65 @@
     </div>
 </div>
 
-<!-- Modal -->
+<!-- Modal Edit -->
+<?php foreach($data_produk as $produk): ?>
+<div class="modal fade" id="modalEdit<?= $produk->id_produk ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header bg-success text-white">
+        <h5 class="modal-title" id="exampleModalLabel">Edit Produk</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form action="<?= base_url('data-produk/update-produk/'.$produk->id_produk) ?>" method="post" enctype="multipart/form-data">
+            <?= csrf_field(); ?>
+            <input type="hidden" name="_method" value="PUT">
+            <input type="hidden" name="foto_lama" value="<?= $produk->foto_produk ; ?>">
+
+            <div class="mb-3">
+                <label for="nama_produk">Nama Produk</label>
+                <input type="text" name="nama_produk" id="nama_produk" class="form-control  <?= $validation->hasError('nama_produk') ? 'is-invalid' : null ?>" value="<?= old('nama_produk', $produk->nama_produk); ?>" >
+            </div>
+
+            <div class="mb-3">
+                <label for="deskripsi">Deskripsi</label>
+                <textarea type="text" name="deskripsi" id="deskripsi" cols="30" rows="5" class="form-control  <?= $validation->hasError('deskriipsi') ? 'is-invalid' : null ?>"><?= $produk->deskripsi ?></textarea>
+            </div>
+
+            <div class="mb-3">
+                <label for="foto_produk">Foto produk</label>
+                 <div class="custom-file">
+                        <input type="file" class="custom-file-input <?= $validation->hasError('foto_produk') ? 'is-invalid' : null ?>" value="<?= old('foto_produk') ?>" name="foto_produk" id="foto_produk" onchange="previewImg()">
+                        <label class="custom-file-label" for="foto_produk"><?= $produk->foto_produk ; ?></label>
+                        <small class="float-right">(Format jpg, jpeg, png, Max 2 MB)</small>
+                    </div>
+
+                <?php if($validation->hasError('foto_produk')): ?>
+                    <div class="invalid-feedback">
+                        <?= $validation->getError('foto_produk'); ?>
+                    </div>
+                <?php endif; ?>
+
+                <div class="mt-1">
+                    <img src="<?= base_url('sb2/img/produk/'.$produk->foto_produk) ?>" alt="" class="img-thumbnail img-preview" width="100px">
+                </div>
+            </div>
+
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Batal</button>
+            <button type="submit" class="btn btn-success btn-sm">Submit</button>
+        </div>
+        </form>
+      </div>
+
+    </div>
+  </div>
+</div>
+<?php endforeach; ?>
+
+<!-- Modal Hapus -->
 <?php foreach($data_produk as $produk): ?>
 <div class="modal fade" id="modalHapus<?= $produk->id_produk ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
@@ -116,4 +174,21 @@
         }
 
     </script>
+
+    <script>
+    function previewImg() {
+        const gambar = document.querySelector('#foto_produk');
+        const gambarLabel = document.querySelector('.custom-file-label');
+        const imgPreview = document.querySelector('.img-preview');
+
+        gambarLabel.textContent = gambar.files[0].name;
+
+        const fileGambar = new FileReader();
+        fileGambar.readAsDataURL(gambar.files[0]);
+
+        fileGambar.onload = function(e) {
+            imgPreview.src = e.target.result;
+        }
+    }
+</script>
 <?= $this->endSection(); ?>
