@@ -20,8 +20,12 @@
 
 
 
-            <a href="<?= base_url('data-produk/tambah');?>" class="btn btn-primary btn-sm mb-2">
-            <i class="fas fa-plus"></i> Tambah Data</a>
+            
+            <div class="d-flex">
+                <a href="<?= base_url('data-produk/tambah');?>" class="btn btn-primary btn-sm mb-2 justify-content-lg-start">
+                <i class="fas fa-plus"></i> Tambah Data</a>
+                <a href="<?= base_url('data-produk/export'); ?>" class="btn btn-sm btn-primary ml-3 mb-2 justify-content-end"><i class="fas fa-file-download fa-sm "></i> Generate Report</a>
+            </div>
 
             <!-- Alert berhasil Tambah Produk -->
             <div class="swal" data-swal="<?= session('success') ?>"></div>
