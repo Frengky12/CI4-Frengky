@@ -72,7 +72,7 @@ class Filters extends BaseConfig
      * @var array
      */
     public $filters = [
-        'login' => ['before' => ['/','dashboard','data-akun/*']],
-        'login' => ['before' =>['data-produk/*']],
+        'login' => ['before' => ['/','dashboard','data-produk/*','data-akun/*']],
+
     ];
 }
