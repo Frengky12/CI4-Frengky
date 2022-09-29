@@ -56,7 +56,7 @@
             <hr class="sidebar-divider d-none d-md-block">
 
             <li class="nav-item">
-                <a class="nav-link collapsed mt-0" href="#">
+                <a class="nav-link collapsed mt-0" href="<?= base_url('logout') ?>">
                     <i class="fas fa-fw fa-sign-out-alt"></i>
                     <span>Logout</span>
                 </a>

@@ -3,6 +3,7 @@
 namespace App\Controllers\Admin;
 
 use App\Controllers\BaseController;
+use \Myth\Auth\Models\UserModel;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
@@ -177,5 +178,28 @@ class ProdukController extends BaseController
         readfile($fileName); // send file
         unlink($fileName); // delete file
         exit;
+    }
+
+
+   
+    protected $userModel;
+    protected $db, $builder;
+
+    public function __construct()
+    {
+        $this->userModel = new UserModel();
+        $this->db = \Config\Database::connect();
+        $this->builder = $this->db->table('users');
+    }
+
+    public function index_akun()
+    {
+    
+        $data = [
+            'title' => 'Data Akun',
+            'data_akun' => $this->builder->get()->getResultObject()
+        ];
+        return view('admin/akun/index', $data);
+
     }
 }

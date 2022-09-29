@@ -49,6 +49,9 @@ $routes->delete('data-produk/delete-produk(:num)','Admin\ProdukController::delet
 $routes->get('data-produk/detail-produk/(:num)','Admin\ProdukController::detail_produk/$1');
 $routes->put('data-produk/update-produk/(:num)','Admin\ProdukController::update_produk/$1');
 
+// routes akun
+$routes->get('data-akun', 'Admin\ProdukController::index_akun');
+
 // routes download laporan 
 $routes->get('data-produk/export', 'Admin\ProdukController::export');
 
